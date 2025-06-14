@@ -1,7 +1,17 @@
-import { useCount } from "@/context/CountContext";
+import {
+  RootState,
+  increment,
+  decrement,
+  AppDispatch,
+  useAppDispatch,
+} from "@/store/store";
+
+import { useSelector } from "react-redux";
 
 const CounterApp: React.FC = () => {
-  const { count, increment, decrement } = useCount();
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch: AppDispatch = useAppDispatch();
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-yellow-400 to-pink-500 flex flex-col justify-center items-center text-white">
       {/* Title */}
@@ -23,13 +33,13 @@ const CounterApp: React.FC = () => {
       <div className="flex space-x-4">
         <button
           className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full text-lg transition duration-300 shadow-lg transform hover:Scale-105"
-          onClick={increment}
+          onClick={() => dispatch(increment())}
         >
           Increment
         </button>
         <button
           className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-8 rounded-full text-lg transition duration-300 shadow-lg transform hover:Scale-105"
-          onClick={decrement}
+          onClick={() => dispatch(decrement())}
         >
           Decrement
         </button>
